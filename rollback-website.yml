@@ -1,0 +1,12 @@
+---
+- hosts: all
+
+  tasks:
+    - name: Remove current deployment of web site if it exists
+      file:
+        path: "/website"
+        state: absent
+    - name: Take a backup copy of the existing web site
+      shell: "cp -a /website.backup/ /website/"
+    - name: Start the web server
+      shell: cd /website && ./stop_server.sh && ./start_server.sh

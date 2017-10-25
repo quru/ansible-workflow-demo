@@ -1,0 +1,11 @@
+---
+- hosts: all
+
+  tasks:
+    - name: Remove previous backup if it exists
+      file:
+        path: "/website.backup"
+        state: absent
+    - name: Take a backup copy of the existing web site
+      shell: "cp -a /website/ /website.backup/"
+
