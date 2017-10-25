@@ -9,7 +9,7 @@
     - name: Pull latest version of site code from Github
       git:
         repo: "https://github.com/quru/acme-website.git"
-        version: master
+        version: "{{ website_version }}"
         dest: /website
     - name: Open port 80 on firewall
       firewalld:
