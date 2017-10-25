@@ -1,0 +1,25 @@
+---
+- hosts: all
+
+  tasks:
+    - name: Install git package
+      yum:
+        name: git
+        state: latest
+    - name: Pull latest version of site code from Github
+      git:
+        repo: "https://github.com/quru/acme-website.git"
+        version: master
+        dest: /website
+    - name: Open port 80 on firewall
+      firewalld:
+        service: http
+        permanent: true
+        state: enabled
+        immediate: yes
+    - name: Put SELinux into permissive mode
+      selinux:
+        state: permissive
+        policy: targeted
+    - name: Start the web server
+      shell: /website/start_server.sh
