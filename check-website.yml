@@ -1,0 +1,13 @@
+---
+- hosts: all
+
+  tasks:
+    - name: Check that the web server returns status 200
+      uri:
+        url: "http://{{ inventory_hostname }}"
+        return_content: yes
+      register: webpage
+
+    - name: Fail if Acme is not in the page content
+      fail:
+      when: "'Acme' not in webpage.content"
