@@ -22,4 +22,4 @@
         state: permissive
         policy: targeted
     - name: Start the web server
-      shell: cd /website && ./start_server.sh
+      shell: cd /website && ./stop_server.sh && ./start_server.sh
