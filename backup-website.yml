@@ -2,10 +2,15 @@
 - hosts: "{{ deployment_group | default('all') }}"
 
   tasks:
+    - name: Check to see if /website exists
+      stat:
+        path: /website
+      register: p
     - name: Remove previous backup if it exists
       file:
         path: "/website.backup"
         state: absent
+      when: p.stat.isdir is defined and p.stat.isdir
     - name: Take a backup copy of the existing web site
       shell: "cp -a /website/ /website.backup/"
-
+      when: p.stat.isdir is defined and p.stat.isdir
