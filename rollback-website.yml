@@ -1,5 +1,5 @@
 ---
-- hosts: all
+- hosts: "{{ deployment_group | default('all') }}"
 
   tasks:
     - name: Remove current deployment of web site if it exists
